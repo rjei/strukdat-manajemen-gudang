@@ -100,6 +100,15 @@ void inventory_widget::initializeTableView(){
             QStyleOptionViewItem centeredOption = option;
             centeredOption.displayAlignment = Qt::AlignCenter;
 
+            // --- TAMBAHKAN BAGIAN INI ---
+            // Memaksa warna teks (Text) menjadi Hitam
+            centeredOption.palette.setColor(QPalette::Text, Qt::black);
+
+            // Opsional: Memaksa warna teks saat dipilih (HighlightedText) juga menjadi Hitam
+            // (Jika tidak ditambahkan, teks akan berwarna putih saat baris dipilih)
+            centeredOption.palette.setColor(QPalette::HighlightedText, Qt::black);
+            // ---------------------------
+
             QStyledItemDelegate::paint(painter, centeredOption, index);
         }
     };
