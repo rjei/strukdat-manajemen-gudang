@@ -3,9 +3,6 @@
 
 #include "user.h"
 #include "products.h"
-#include "sold.h"
-#include "purchase.h"
-#include "Invoice.h"
 
 class Seller : public User{
 public:
@@ -27,34 +24,10 @@ public:
     const Products& getProductsModel() const;
     Products& editProducts();
 
-    const Sold& getSoldModel() const;
-    Sold& editSoldModel();
-
-    const Purchase& getPurchaseModel() const;
-    Purchase& editPurchaseModel();
-
-    const invoiceItems& getInvoiceItemsModel() const;
-    invoiceItems& editInvoiceItems();
-
-    void addToInvoice(const Seller& provider, const InvoiceItem& item);
-
-    const Invoice& getInvoice() const;
-    Invoice& editInvoice();
-
-    void setInvoice(const Invoice& invoice);
-
-    void purchase();
-
-    void sold(const Invoice& customer);
-
 private:
     std::string m_MID;
     std::string m_manufactureName;
     Products m_products;
-    invoiceItems m_items;
-    Sold m_soldHistory;
-    Purchase m_purchaseHistory;
-    Invoice m_invoice;
 };
 
 #endif // SELLER_H
