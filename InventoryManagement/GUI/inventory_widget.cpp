@@ -5,7 +5,6 @@
 #include <QMessageBox>
 #include <QHeaderView>
 #include "edit_product_window.h"
-#include "../currency.h"
 #include "../datahandler.h"
 
 inventory_widget::inventory_widget(Manufacturers* manufacturers, Seller* user,QWidget *parent) :
@@ -261,7 +260,7 @@ void inventory_widget::updateTableViewWithSearchCriteria(const QString& text, Me
             m_tableViewModel.setItem(row, 1, new QStandardItem(QString::fromStdString(product.getName())));
             m_tableViewModel.setItem(row, 2, new QStandardItem(QString::fromStdString(product.getBrand())));
             m_tableViewModel.setItem(row, 3, new QStandardItem(QString::fromStdString(product.getCategory())));
-            m_tableViewModel.setItem(row, 4, new QStandardItem(QString::fromStdString(Currency::currencySymbol) + QString::number(product.getPrice(), 'f', 2)));
+            m_tableViewModel.setItem(row, 4, new QStandardItem("Rp. " + QString::number(product.getPrice(), 'f', 2)));
             m_tableViewModel.setItem(row, 5, new QStandardItem(QString::number(product.getStock())));
             m_tableViewModel.setItem(row, 6, new QStandardItem(QString::number(product.getAvailable())));
             m_tableViewModel.setItem(row, 7, new QStandardItem(QString::fromStdString(product.getUnit())));
