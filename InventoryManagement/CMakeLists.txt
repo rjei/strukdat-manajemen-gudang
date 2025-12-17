@@ -24,6 +24,11 @@ set(PROJECT_SOURCES
         seller.h seller.cpp
         products.h products.cpp
         resource.qrc
+<<<<<<< Updated upstream
+=======
+        GUI/home_window.h GUI/home_window.cpp GUI/home_window.ui
+        GUI/inventory_widget.h GUI/inventory_widget.cpp GUI/inventory_widget.ui
+>>>>>>> Stashed changes
         datahandler.h datahandler.cpp
         manufacturers.h manufacturers.cpp
 
@@ -32,6 +37,7 @@ set(PROJECT_SOURCES
         GUI/inventory_widget.h GUI/inventory_widget.cpp GUI/inventory_widget.ui
         GUI/add_product_window.h GUI/add_product_window.cpp GUI/add_product_window.ui
         GUI/edit_product_window.h GUI/edit_product_window.cpp GUI/edit_product_window.ui
+<<<<<<< Updated upstream
         GUI/product_information_window.h GUI/product_information_window.cpp GUI/product_information_window.ui
 )
 
@@ -39,6 +45,27 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(InventoryManagement MANUAL_FINALIZATION ${PROJECT_SOURCES})
 else()
     add_executable(InventoryManagement ${PROJECT_SOURCES})
+=======
+        Currency.h Currency.cpp
+        dataBase.db
+)
+
+if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
+    qt_add_executable(InventoryManagement
+        MANUAL_FINALIZATION
+        ${PROJECT_SOURCES}
+    )
+else()
+    if(ANDROID)
+        add_library(InventoryManagement SHARED
+            ${PROJECT_SOURCES}
+        )
+    else()
+        add_executable(InventoryManagement
+            ${PROJECT_SOURCES}
+        )
+    endif()
+>>>>>>> Stashed changes
 endif()
 
 target_link_libraries(InventoryManagement PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Sql)
