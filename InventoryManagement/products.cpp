@@ -13,7 +13,8 @@ void Products::addProduct(const Product& newItem) {
 }
 
 const Product& Products::getProduct(const std::string_view desiredSku) const{
-    std::vector<Product>::const_iterator productIterator = std::ranges::find_if(m_products, [&desiredSku](const Product& product) {
+    std::vector<Product>::const_iterator productIterator = std::find_if(m_products.cbegin(), m_products.cend(),
+                                                                        [&desiredSku](const Product& product) {
         return product.getSku() == desiredSku;
     });
 
@@ -21,7 +22,8 @@ const Product& Products::getProduct(const std::string_view desiredSku) const{
 }
 
 Product& Products::editProduct(const std::string_view desiredSku) {
-    std::vector<Product>::iterator productIterator = std::ranges::find_if(m_products, [&desiredSku](const Product& product) {
+    std::vector<Product>::iterator productIterator = std::find_if(m_products.begin(), m_products.end(),
+                                                                  [&desiredSku](const Product& product) {
         return product.getSku() == desiredSku;
     });
 
@@ -29,23 +31,33 @@ Product& Products::editProduct(const std::string_view desiredSku) {
 }
 
 bool Products::existence(const std::string_view desiredSku) const {
-    bool doesExist = std::ranges::any_of(m_products, [desiredSku](const Product& product) {
-        return product.getSku() == desiredSku;
-    });
-
-    return doesExist;
+    return std::any_of(m_products.cbegin(), m_products.cend(),
+                       [desiredSku](const Product& product) {
+                           return product.getSku() == desiredSku;
+                       });
 }
 
 void Products::sortBySKU(){
-    std::ranges::sort(m_products, {}, &Product::getSku);
+    std::sort(m_products.begin(), m_products.end(),
+              [](const Product& a, const Product& b) {
+                  return a.getSku() < b.getSku();
+              });
 }
 
 void Products::sortBySKUdes(){
-    std::ranges::sort(m_products, std::greater<>{}, &Product::getSku);
+    std::sort(m_products.begin(), m_products.end(),
+              [](const Product& a, const Product& b) {
+                  return a.getSku() > b.getSku();
+              });
 }
 
 void Products::removeProduct(std::string_view desiredSku) {
-    std::erase_if(m_products, [&desiredSku](const Product& product) {return (product.getSku() == desiredSku); });
+    m_products.erase(
+        std::remove_if(m_products.begin(), m_products.end(),
+                       [&desiredSku](const Product& product) {
+                           return product.getSku() == desiredSku;
+                       }),
+        m_products.end());
 }
 
 const std::vector<Product>& Products::getProducts() const {
@@ -57,65 +69,113 @@ std::vector<Product> &Products::editProducts(){
 }
 
 void Products::sortByName() {
-    std::ranges::sort(m_products, {}, &Product::getName);
+    std::sort(m_products.begin(), m_products.end(),
+              [](const Product& a, const Product& b) {
+                  return a.getName() < b.getName();
+              });
 }
 
 void Products::sortByNameDes(){
-    std::ranges::sort(m_products, std::greater<>{}, &Product::getName);
+    std::sort(m_products.begin(), m_products.end(),
+              [](const Product& a, const Product& b) {
+                  return a.getName() > b.getName();
+              });
 }
 
 void Products::sortByCategory() {
-    std::ranges::sort(m_products, {}, &Product::getCategory);
+    std::sort(m_products.begin(), m_products.end(),
+              [](const Product& a, const Product& b) {
+                  return a.getCategory() < b.getCategory();
+              });
 }
 
 void Products::sortByCategoryDes(){
-    std::ranges::sort(m_products, std::greater<>{}, &Product::getCategory);
+    std::sort(m_products.begin(), m_products.end(),
+              [](const Product& a, const Product& b) {
+                  return a.getCategory() > b.getCategory();
+              });
 }
 
 void Products::sortByBrand() {
-    std::ranges::sort(m_products, {}, &Product::getBrand);
+    std::sort(m_products.begin(), m_products.end(),
+              [](const Product& a, const Product& b) {
+                  return a.getBrand() < b.getBrand();
+              });
 }
 
 void Products::sortByBrandDes(){
-    std::ranges::sort(m_products, std::greater<>{}, &Product::getBrand);
+    std::sort(m_products.begin(), m_products.end(),
+              [](const Product& a, const Product& b) {
+                  return a.getBrand() > b.getBrand();
+              });
 }
 
 void Products::sortByPrice(){
-    std::ranges::sort(m_products, {}, &Product::getPrice);
+    std::sort(m_products.begin(), m_products.end(),
+              [](const Product& a, const Product& b) {
+                  return a.getPrice() < b.getPrice();
+              });
 }
 
 void Products::sortByPriceDes(){
-    std::ranges::sort(m_products, std::greater<>{}, &Product::getPrice);
+    std::sort(m_products.begin(), m_products.end(),
+              [](const Product& a, const Product& b) {
+                  return a.getPrice() > b.getPrice();
+              });
 }
 
 void Products::sortByStock() {
-    std::ranges::sort(m_products, {}, &Product::getStock);
+    std::sort(m_products.begin(), m_products.end(),
+              [](const Product& a, const Product& b) {
+                  return a.getStock() < b.getStock();
+              });
 }
 
 void Products::sortByStockDes(){
-    std::ranges::sort(m_products, std::greater<>{}, &Product::getStock);
+    std::sort(m_products.begin(), m_products.end(),
+              [](const Product& a, const Product& b) {
+                  return a.getStock() > b.getStock();
+              });
 }
 
 void Products::sortByAvailable(){
-    std::ranges::sort(m_products, {}, &Product::getAvailable);
+    std::sort(m_products.begin(), m_products.end(),
+              [](const Product& a, const Product& b) {
+                  return a.getAvailable() < b.getAvailable();
+              });
 }
 
 void Products::sortByAvailableDes(){
-    std::ranges::sort(m_products, std::greater<>{}, &Product::getAvailable);
+    std::sort(m_products.begin(), m_products.end(),
+              [](const Product& a, const Product& b) {
+                  return a.getAvailable() > b.getAvailable();
+              });
 }
 
 void Products::sortByAddDate() {
-    std::ranges::sort(m_products, {}, &Product::getAddedDate);
+    std::sort(m_products.begin(), m_products.end(),
+              [](const Product& a, const Product& b) {
+                  return a.getAddedDate() < b.getAddedDate();
+              });
 }
 
 void Products::sortByAddDateDes(){
-    std::ranges::sort(m_products, std::greater<>{}, &Product::getAddedDate);
+    std::sort(m_products.begin(), m_products.end(),
+              [](const Product& a, const Product& b) {
+                  return a.getAddedDate() > b.getAddedDate();
+              });
 }
 
 void Products::sortByExDate(){
-    std::ranges::sort(m_products, {}, &Product::getExDate);
+    std::sort(m_products.begin(), m_products.end(),
+              [](const Product& a, const Product& b) {
+                  return a.getExDate() < b.getExDate();
+              });
 }
 
 void Products::sortByExDateDes(){
-    std::ranges::sort(m_products, std::greater<>{}, &Product::getExDate);
+    std::sort(m_products.begin(), m_products.end(),
+              [](const Product& a, const Product& b) {
+                  return a.getExDate() > b.getExDate();
+              });
 }

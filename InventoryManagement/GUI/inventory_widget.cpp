@@ -115,33 +115,20 @@ void inventory_widget::initializeTableView(){
     // Create and set the custom delegate for center alignment
     ui->TV_products->setItemDelegate(new CenterAlignmentDelegate(ui->TV_products));
 
-    m_tableViewModel.setHorizontalHeaderItem(0 ,new QStandardItem("SKU"));
-    m_tableViewModel.setHorizontalHeaderItem(1 ,new QStandardItem("Name"));
-    m_tableViewModel.setHorizontalHeaderItem(2 ,new QStandardItem("Brand"));
-    m_tableViewModel.setHorizontalHeaderItem(3 ,new QStandardItem("Category"));
-    m_tableViewModel.setHorizontalHeaderItem(4 ,new QStandardItem("Price"));
-    m_tableViewModel.setHorizontalHeaderItem(5 ,new QStandardItem("In Stock"));
-    m_tableViewModel.setHorizontalHeaderItem(6 ,new QStandardItem("Available"));
-    m_tableViewModel.setHorizontalHeaderItem(7 ,new QStandardItem("Unit"));
-    m_tableViewModel.setHorizontalHeaderItem(8 ,new QStandardItem("Added Date"));
-    m_tableViewModel.setHorizontalHeaderItem(9 ,new QStandardItem("Expration Date"));
+    // Kolom baru: ID, Nama Produk, Merek, Kategori, Harga (Rupiah), Stok
+    m_tableViewModel.setHorizontalHeaderItem(0 ,new QStandardItem("ID"));
+    m_tableViewModel.setHorizontalHeaderItem(1 ,new QStandardItem("Nama Produk"));
+    m_tableViewModel.setHorizontalHeaderItem(2 ,new QStandardItem("Merek"));
+    m_tableViewModel.setHorizontalHeaderItem(3 ,new QStandardItem("Kategori"));
+    m_tableViewModel.setHorizontalHeaderItem(4 ,new QStandardItem("Harga (Rp)"));
+    m_tableViewModel.setHorizontalHeaderItem(5 ,new QStandardItem("Stok"));
 
     ui->TV_products->setModel(&m_tableViewModel);
     ui->TV_products->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->TV_products->setSelectionMode(QAbstractItemView::SingleSelection);
-    ui->TV_products->horizontalHeader()->setSectionResizeMode(QHeaderView::Fixed);
 
-    // Set the size of each column
-    const int numColumns = 9;
-    const int defaultColumnWidth = 100;
-    for (int column = 0; column < numColumns; ++column) {
-        if (column == 4)    // for Price column
-            ui->TV_products->setColumnWidth(column, 90);
-        else if (column == 5 || column == 6 || column == 7 || column == 8 || column == 9)
-            ui->TV_products->setColumnWidth(column, 70);
-        else
-            ui->TV_products->setColumnWidth(column, defaultColumnWidth);
-    }
+    // Buat semua kolom selalu mengisi penuh lebar tabel (tidak ada ruang kosong di kanan)
+    ui->TV_products->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
     ui->TV_products->horizontalHeader()->setSectionsClickable(true);
 
@@ -158,18 +145,15 @@ void inventory_widget::updateTable() {
 
     int row = 0;
     for (const Product& product : products){
-        QStandardItem* SKU = new QStandardItem(QString::fromStdString(product.getSku()));
-        SKU->setData(Qt::AlignCenter, Qt::TextAlignmentRole);
-        m_tableViewModel.setItem(row,0 ,SKU);
-        m_tableViewModel.setItem(row,1 ,new QStandardItem(QString::fromStdString(product.getName())));
-        m_tableViewModel.setItem(row,2 ,new QStandardItem(QString::fromStdString(product.getBrand())));
-        m_tableViewModel.setItem(row,3 ,new QStandardItem((QString::fromStdString(product.getCategory()))));
-        m_tableViewModel.setItem(row,4 ,new QStandardItem(QString::fromStdString(Currency::currencySymbol) + QString::number(product.getPrice(), 'f' , 2)));
-        m_tableViewModel.setItem(row,5 ,new QStandardItem(QString::number(product.getStock())));
-        m_tableViewModel.setItem(row,6 ,new QStandardItem(QString::number(product.getAvailable())));
-        m_tableViewModel.setItem(row,7 ,new QStandardItem(QString::fromStdString(product.getUnit())));
-        m_tableViewModel.setItem(row,8 ,new QStandardItem(QString::fromStdString(product.getAddedDate())));
-        m_tableViewModel.setItem(row,9 ,new QStandardItem(QString::fromStdString(product.getExDate())));
+        // ID: gunakan SKU sebagai ID yang ditampilkan
+        QStandardItem* ID = new QStandardItem(QString::fromStdString(product.getSku()));
+        ID->setData(Qt::AlignCenter, Qt::TextAlignmentRole);
+        m_tableViewModel.setItem(row,0 ,ID);
+        m_tableViewModel.setItem(row,1 ,new QStandardItem(QString::fromStdString(product.getName())));      // Nama Produk
+        m_tableViewModel.setItem(row,2 ,new QStandardItem(QString::fromStdString(product.getBrand())));     // Merek
+        m_tableViewModel.setItem(row,3 ,new QStandardItem((QString::fromStdString(product.getCategory())))); // Kategori
+        m_tableViewModel.setItem(row,4 ,new QStandardItem("Rp. " + QString::number(product.getPrice(), 'f' , 2))); // Harga (Rp)
+        m_tableViewModel.setItem(row,5 ,new QStandardItem(QString::number(product.getStock())));            // Stok
         row++;
     }
 
@@ -256,16 +240,13 @@ void inventory_widget::updateTableViewWithSearchCriteria(const QString& text, Me
         QString value = QString::fromStdString((product.*memberFunction)()).toLower();
 
         if (value.startsWith(text)) {
-            m_tableViewModel.setItem(row, 0, new QStandardItem(QString::fromStdString(product.getSku())));
-            m_tableViewModel.setItem(row, 1, new QStandardItem(QString::fromStdString(product.getName())));
-            m_tableViewModel.setItem(row, 2, new QStandardItem(QString::fromStdString(product.getBrand())));
-            m_tableViewModel.setItem(row, 3, new QStandardItem(QString::fromStdString(product.getCategory())));
-            m_tableViewModel.setItem(row, 4, new QStandardItem("Rp. " + QString::number(product.getPrice(), 'f', 2)));
-            m_tableViewModel.setItem(row, 5, new QStandardItem(QString::number(product.getStock())));
-            m_tableViewModel.setItem(row, 6, new QStandardItem(QString::number(product.getAvailable())));
-            m_tableViewModel.setItem(row, 7, new QStandardItem(QString::fromStdString(product.getUnit())));
-            m_tableViewModel.setItem(row, 8, new QStandardItem(QString::fromStdString(product.getAddedDate())));
-            m_tableViewModel.setItem(row, 9, new QStandardItem(QString::fromStdString(product.getExDate())));
+            // ID menggunakan SKU, kolom-kolom disesuaikan dengan tabel baru
+            m_tableViewModel.setItem(row, 0, new QStandardItem(QString::fromStdString(product.getSku()))); // ID
+            m_tableViewModel.setItem(row, 1, new QStandardItem(QString::fromStdString(product.getName()))); // Nama Produk
+            m_tableViewModel.setItem(row, 2, new QStandardItem(QString::fromStdString(product.getBrand()))); // Merek
+            m_tableViewModel.setItem(row, 3, new QStandardItem(QString::fromStdString(product.getCategory()))); // Kategori
+            m_tableViewModel.setItem(row, 4, new QStandardItem("Rp. " + QString::number(product.getPrice(), 'f', 2))); // Harga (Rp)
+            m_tableViewModel.setItem(row, 5, new QStandardItem(QString::number(product.getStock()))); // Stok
             row++;
         }
     }

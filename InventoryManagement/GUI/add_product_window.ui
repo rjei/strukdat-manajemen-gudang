@@ -112,7 +112,7 @@ font-weight: bold;
 text-transform: none;</string>
                </property>
                <property name="text">
-                <string>Name</string>
+                <string>Nama Produk</string>
                </property>
               </widget>
              </item>
@@ -155,7 +155,7 @@ font-weight: bold;
 text-transform: none;</string>
                </property>
                <property name="text">
-                <string>Price</string>
+                <string>Harga (Rp)</string>
                </property>
               </widget>
              </item>
@@ -198,7 +198,7 @@ font-weight: bold;
 text-transform: none;</string>
                </property>
                <property name="text">
-                <string>SKU</string>
+                <string>ID</string>
                </property>
               </widget>
              </item>
@@ -283,7 +283,7 @@ text-transform: none;</string>
            <property name="rightMargin">
             <number>0</number>
            </property>
-           <item>
+             <item>
             <widget class="QLabel" name="label_11">
              <property name="styleSheet">
               <string notr="true">font-family: Calibri;
@@ -293,7 +293,7 @@ font-weight: bold;
 text-transform: none;</string>
              </property>
              <property name="text">
-              <string>Brand</string>
+              <string>Merek</string>
              </property>
             </widget>
            </item>
@@ -347,7 +347,7 @@ font-weight: bold;
 text-transform: none;</string>
              </property>
              <property name="text">
-              <string>Category</string>
+              <string>Kategori</string>
              </property>
             </widget>
            </item>
@@ -408,7 +408,7 @@ font-weight: bold;
 text-transform: none;</string>
              </property>
              <property name="text">
-              <string>In Stock</string>
+              <string>Stok</string>
              </property>
             </widget>
            </item>

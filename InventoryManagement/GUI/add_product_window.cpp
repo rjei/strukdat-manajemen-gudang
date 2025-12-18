@@ -16,19 +16,34 @@ add_product_window::add_product_window(Seller *user, QWidget *parent) :
 
     ui->setupUi(this);
 
-    this->setWindowTitle("Add Product");
+    this->setWindowTitle("Tambah Produk");
 
     hideErrors();
     expDateEdit();
 
     ui->LE_price->setValidator(new QDoubleValidator(0, 100, 5, this));
-    ui->LE_stock->setValidator(new QDoubleValidator(0, 100, 5, this));
-    ui->LE_available->setValidator(new QDoubleValidator(0, 100, 5, this));
+    ui->LE_stock->setValidator(new QDoubleValidator(0, 1000000, 5, this));
+    ui->LE_available->setValidator(new QDoubleValidator(0, 1000000, 5, this));
 
-    ui->DE_addedDate->setDate(QDate::currentDate());
-    ui->DE_exDate->setDate(QDate::currentDate());
-    ui->DE_addedDate->setDisplayFormat("yyyy/MM/dd");
-    ui->DE_exDate->setDisplayFormat("yyyy/MM/dd");
+    // Field-field detail (Available, Unit, Description, Tanggal) tidak ditampilkan ke user.
+    // Nilai untuk kolom ini akan diisi otomatis dengan default di kode.
+    ui->label_15->setVisible(false);        // "Available"
+    ui->LE_available->setVisible(false);
+    ui->LB_availableError->setVisible(false);
+
+    ui->label_17->setVisible(false);        // "Unit"
+    ui->LE_unit->setVisible(false);
+    ui->LB_unitError->setVisible(false);
+
+    ui->label_3->setVisible(false);         // "Added Date"
+    ui->DE_addedDate->setVisible(false);
+
+    ui->CB_expCheckBox->setVisible(false);  // ekspirasI & description
+    ui->LB_expDate->setVisible(false);
+    ui->DE_exDate->setVisible(false);
+
+    ui->label_2->setVisible(false);         // "Description"
+    ui->TE_description->setVisible(false);
 }
 
 add_product_window::~add_product_window()
@@ -85,14 +100,6 @@ bool add_product_window::checkIfEmpty(){
         ui->LB_stockError->setText("This field is required");
         empty = true;
     }
-    if (ui->LE_available->text().trimmed().isEmpty()){
-        ui->LB_availableError->setText("This field is required");
-        empty = true;
-    }
-    if (ui->LE_unit->text().trimmed().isEmpty()){
-        ui->LB_unitError->setText("This field is required");
-        empty = true;
-    }
 
     return empty;
 }
@@ -106,21 +113,17 @@ void add_product_window::addProductToInventory(){
     const std::string category = ui->LE_category->text().trimmed().toStdString();
 
     const double stock = ui->LE_stock->text().trimmed().toDouble();
-    const double available = ui->LE_available->text().trimmed().toDouble();
-    const std::string unit = ui->LE_unit->text().trimmed().toStdString();
 
-    const std::string description = ui->TE_description->toPlainText().toStdString();
+    // Kolom lain diisi otomatis dengan nilai default
+    const double available = stock;                // default: semua stok tersedia
+    const std::string unit = "pcs";               // default satuan
+    const std::string description = "-";          // default deskripsi
 
-    QDate qAddedDate = ui->DE_addedDate->date();
-    const std::string addedDate = qAddedDate.toString("yyyy/MM/dd").toStdString();
+    const std::string addedDate = QDate::currentDate().toString("yyyy/MM/dd").toStdString(); // default: hari ini
 
-    std::string exDate;
-    if (ui->CB_expCheckBox->isChecked())
-        exDate = ui->DE_exDate->date().toString("yyyy/MM/dd").toStdString();
-    else
-        exDate = "none";
+    const std::string exDate = "none";            // tidak memakai tanggal kedaluwarsa
 
-    bool availability = ([available](){ return available > 0; })();
+    bool availability = (stock > 0);              // tersedia jika stok > 0
 
     Product newProduct(name, category, sku, brand, stock, available, price, unit, description, addedDate, exDate, availability);
     m_user->addProduct(newProduct);
