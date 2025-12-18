@@ -21,7 +21,13 @@ int main(int argc, char *argv[])
         currentUser = sellers[0];
     } else {
         // Jika kosong, buat user dummy agar tidak crash
-        currentUser = new Seller("Default", "User", "admin", "admin", "email@test.com");
+        currentUser = new Seller();
+        currentUser->setName("Default");
+        currentUser->setLastName("User");
+        currentUser->setUsername("admin");
+        currentUser->setPassword("admin");
+        currentUser->setNIN("0000000000");
+        currentUser->setPhoneNumber("0000000000");
     }
 
     // 3. Langsung Buka Dashboard

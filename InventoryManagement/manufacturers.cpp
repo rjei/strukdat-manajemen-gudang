@@ -15,35 +15,31 @@ void Manufacturers::addManufact(Seller* seller){
 }
 
 bool Manufacturers::usernameExistence(const std::string_view username) const{
-    bool doesExist = std::ranges::any_of(m_manufacturers, [username](const Seller* seller){
-        return seller->getUsername() == username;
-    });
-
-    return doesExist;
+    return std::any_of(m_manufacturers.cbegin(), m_manufacturers.cend(),
+                       [username](const Seller* seller){
+                           return seller->getUsername() == username;
+                       });
 }
 
 bool Manufacturers::NINexistence(const std::string_view NIN) const{
-    bool doesExist = std::ranges::any_of(m_manufacturers, [NIN](const Seller* seller){
-        return seller->getNIN() == NIN;
-    });
-
-    return doesExist;
+    return std::any_of(m_manufacturers.cbegin(), m_manufacturers.cend(),
+                       [NIN](const Seller* seller){
+                           return seller->getNIN() == NIN;
+                       });
 }
 
 bool Manufacturers::MIDexistence(const std::string_view MID) const{
-    bool doesExist = std::ranges::any_of(m_manufacturers, [MID](const Seller* seller){
-        return seller->getMID() == MID;
-    });
-
-    return doesExist;
+    return std::any_of(m_manufacturers.cbegin(), m_manufacturers.cend(),
+                       [MID](const Seller* seller){
+                           return seller->getMID() == MID;
+                       });
 }
 
 bool Manufacturers::phoneNumberExistence(const std::string_view phoneNumber) const{
-    bool doesExist = std::ranges::any_of(m_manufacturers, [phoneNumber](const Seller* seller){
-        return seller->getUsername() == phoneNumber;
-    });
-
-    return doesExist;
+    return std::any_of(m_manufacturers.cbegin(), m_manufacturers.cend(),
+                       [phoneNumber](const Seller* seller){
+                           return seller->getUsername() == phoneNumber;
+                       });
 }
 
 bool Manufacturers::checkPassword(std::string_view username, std::string_view password) const{

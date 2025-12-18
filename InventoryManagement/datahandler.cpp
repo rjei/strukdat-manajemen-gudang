@@ -1,6 +1,5 @@
 
 #include "datahandler.h"
-#include "currency.h"
 #include "manufacturers.h"
 #include "seller.h"
 
@@ -78,8 +77,6 @@ void DataHandler::readDataLogin(Manufacturers* manufacturers){
 }
 
 void DataHandler::readDataHomeWindow(Manufacturers *manufacturers, Seller *user){
-    Currency::currentCurrency = "USD";
-    Currency::currencySymbol = "$";
     readProducts(user);
 }
 

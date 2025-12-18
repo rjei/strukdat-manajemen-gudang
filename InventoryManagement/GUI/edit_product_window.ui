@@ -295,7 +295,7 @@ font-weight: bold;
 text-transform: none;</string>
    </property>
    <property name="text">
-    <string>Name</string>
+    <string>Nama Produk</string>
    </property>
   </widget>
   <widget class="QLabel" name="LB_nameError">
@@ -366,7 +366,7 @@ font-weight: bold;
 text-transform: none;</string>
    </property>
    <property name="text">
-    <string>Brand</string>
+    <string>Merek</string>
    </property>
   </widget>
   <widget class="QLabel" name="LB_brandError">
@@ -426,7 +426,7 @@ font-weight: bold;
 text-transform: none;</string>
    </property>
    <property name="text">
-    <string>Category</string>
+    <string>Kategori</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="LE_category">
@@ -502,7 +502,7 @@ font-weight: bold;
 text-transform: none;</string>
    </property>
    <property name="text">
-    <string>Price</string>
+    <string>Harga (Rp)</string>
    </property>
   </widget>
   <widget class="QLabel" name="LB_priceError">
@@ -587,7 +587,7 @@ font-weight: bold;
 text-transform: none;</string>
    </property>
    <property name="text">
-    <string>In Stock</string>
+    <string>Stok</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_12">
@@ -868,7 +868,7 @@ font-weight: bold;
 text-transform: none;</string>
    </property>
    <property name="text">
-    <string>SKU</string>
+    <string>ID</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="LE_SKU">

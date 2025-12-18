@@ -14,14 +14,33 @@ edit_product_window::edit_product_window(Seller* user,Product* product,QWidget *
 
     this->setWindowTitle("Edit Product");
 
-    ui->LE_price->setValidator(new QDoubleValidator(0,100, 5, this));
-    ui->LE_stock->setValidator(new QDoubleValidator(0,100, 5, this));
-    ui->LE_available->setValidator(new QDoubleValidator(0,100, 5, this));
+    ui->LE_price->setValidator(new QDoubleValidator(0,1000000, 5, this));
+    ui->LE_stock->setValidator(new QDoubleValidator(0,1000000, 5, this));
+    ui->LE_available->setValidator(new QDoubleValidator(0,1000000, 5, this));
 
     ui->DE_addDate->setDisplayFormat("yyyy/MM/dd");
     ui->DE_exDate->setDisplayFormat("yyyy/MM/dd");
 
     connect(this, &QDialog::finished, this, &edit_product_window::windowClosed);
+
+    // Sembunyikan field yang tidak lagi diedit di UI, nilainya dijaga / diisi otomatis.
+    ui->label_12->setVisible(false);      // Unit
+    ui->LE_unit->setVisible(false);
+    ui->LB_unitError->setVisible(false);
+
+    ui->label_7->setVisible(false);       // Available
+    ui->LE_available->setVisible(false);
+    ui->LB_availableError->setVisible(false);
+
+    ui->label_9->setVisible(false);       // Added Date
+    ui->DE_addDate->setVisible(false);
+
+    ui->LB_exDate->setVisible(false);     // Expiration Date
+    ui->DE_exDate->setVisible(false);
+    ui->exparationDate_checkBox->setVisible(false);
+
+    ui->label_11->setVisible(false);      // Description
+    ui->textEdit->setVisible(false);
 
     resetLabels();
 }
@@ -38,26 +57,8 @@ void edit_product_window::resetLabels(){
     ui->LE_category->setText(QString::fromStdString(m_product->getCategory()));
     ui->LE_price->setText(QString::number(m_product->getPrice()));
     ui->LE_stock->setText(QString::number(m_product->getStock()));
-    ui->LE_unit->setText(QString::fromStdString(m_product->getUnit()));
-    ui->LE_available->setText(QString::number(m_product->getAvailable()));
     ui->LE_SKU->setText(QString::fromStdString(m_product->getSku()));
-    ui->textEdit->setText(QString::fromStdString(m_product->getDescription()));
-
-    QDate addDate = QDate::fromString(QString::fromStdString(m_product->getAddedDate()), "yyyy/MM/dd");
-    ui->DE_addDate->setDate(addDate);
-
-    if (m_product->getExDate() != "none"){
-        ui->exparationDate_checkBox->setChecked(true);
-        QDate exDate = QDate::fromString(QString::fromStdString(m_product->getExDate()), "yyyy/MM/dd");
-        ui->DE_exDate->setDate(exDate);
-        ui->LB_exDate->setVisible(true);
-    }
-    else{
-        ui->LB_exDate->setVisible(false);
-        ui->DE_exDate->setVisible(false);
-        ui->exparationDate_checkBox->setChecked(false);
-    }
-
+    // Deskripsi dan tanggal tetap ada di data, tapi tidak ditampilkan / diubah lewat form baru.
 }
 
 void edit_product_window::hideError(){
@@ -66,8 +67,6 @@ void edit_product_window::hideError(){
     ui->LB_categoryError->setVisible(false);
     ui->LB_priceError->setVisible(false);
     ui->LB_stockError->setVisible(false);
-    ui->LB_unitError->setVisible(false);
-    ui->LB_availableError->setVisible(false);
     ui->LB_SKUerror->setVisible(false);
 }
 
@@ -93,19 +92,9 @@ bool edit_product_window::isEmpty(){
         ui->LB_priceError->setVisible(true);
         empty = true;
     }
-    if (ui->LE_available->text().trimmed().isEmpty()){
-        ui->LB_availableError->setText("This field is required");
-        ui->LB_availableError->setVisible(true);
-        empty = true;
-    }
     if (ui->LE_stock->text().trimmed().isEmpty()){
         ui->LB_stockError->setText("This field is required");
         ui->LB_stockError->setVisible(true);
-        empty = true;
-    }
-    if (ui->LE_unit->text().trimmed().isEmpty()){
-        ui->LB_unitError->setText("This field is required");
-        ui->LB_unitError->setVisible(true);
         empty = true;
     }
     if (ui->LE_SKU->text().trimmed().isEmpty()){
@@ -138,23 +127,16 @@ void edit_product_window::editProduct(){
     std::string category = ui->LE_category->text().trimmed().toStdString();
     double price = std::stod(ui->LE_price->text().trimmed().toStdString());
     double stock = std::stod(ui->LE_stock->text().trimmed().toStdString());
-    std::string unit = ui->LE_unit->text().trimmed().toStdString();
-    double available = std::stod(ui->LE_available->text().trimmed().toStdString());
     std::string sku = ui->LE_SKU->text().trimmed().toStdString();
-    std::string description = ui->textEdit->toPlainText().toStdString();
 
-    QDate addedDate = ui->DE_addDate->date();
-    std::string addedDateStr = addedDate.toString("yyyy/MM/dd").toStdString();
+    // Kolom lain tidak diedit lewat form baru, gunakan nilai lama / default konsisten.
+    double available = stock;                              // tersedia = stok
+    std::string unit = m_product->getUnit();               // pertahankan unit lama
+    std::string description = m_product->getDescription(); // pertahankan deskripsi lama
+    std::string addedDateStr = m_product->getAddedDate();  // tanggal tambah tetap
+    std::string exDateStr = m_product->getExDate();        // tanggal kedaluwarsa tetap
 
-    std::string exDateStr = "none";
-    if (ui->exparationDate_checkBox->isChecked()){
-        QDate exDate = ui->DE_exDate->date();
-        exDateStr = exDate.toString("yyyy/MM/dd").toStdString();
-    }
-    else{
-        exDateStr = "none";
-    }
-    bool availability = available > 0;
+    bool availability = (stock > 0);
 
     std::string currentSKU = m_product->getSku();
 
