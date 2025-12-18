@@ -26,6 +26,8 @@ set(PROJECT_SOURCES
         resource.qrc
         datahandler.h datahandler.cpp
         manufacturers.h manufacturers.cpp
+        warehouse_graph.h
+        warehouse_graph.cpp
 
         # GUI
         GUI/home_window.h GUI/home_window.cpp GUI/home_window.ui
