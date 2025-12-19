@@ -206,121 +206,20 @@ text-transform: none;</string>
           </spacer>
          </item>
          <item>
-          <widget class="QLabel" name="LB_by">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>15</width>
-             <height>35</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>15</width>
-             <height>35</height>
-            </size>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">font-family: Calibri;
-font-size: 12px;
-color: #4e001f;
-font-weight: bold;
-text-transform: none;</string>
-           </property>
-           <property name="text">
-            <string>by</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="horizontalSpacer_4">
+          <spacer name="horizontalSpacer_8">
            <property name="orientation">
             <enum>Qt::Orientation::Horizontal</enum>
            </property>
            <property name="sizeType">
-            <enum>QSizePolicy::Policy::Fixed</enum>
+            <enum>QSizePolicy::Policy::Minimum</enum>
            </property>
            <property name="sizeHint" stdset="0">
             <size>
-             <width>10</width>
-             <height>20</height>
+             <width>20</width>
+             <height>10</height>
             </size>
            </property>
           </spacer>
-         </item>
-         <item>
-          <widget class="QComboBox" name="CB_searchBy">
-           <property name="minimumSize">
-            <size>
-             <width>152</width>
-             <height>35</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>135</width>
-             <height>35</height>
-            </size>
-           </property>
-           <property name="cursor">
-            <cursorShape>PointingHandCursor</cursorShape>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">QComboBox {
-    /* Background and Border */
-    background-color: #d9e5f8;
-    border: 1px solid #CCCCCC;
-    border-radius: 8px;
-    padding: 8px 10px;
-    min-width: 130px;
-}
-
-QComboBox::drop-down {
-    /* Dropdown Arrow */
-    subcontrol-origin: padding;
-    subcontrol-position: right;
-    width: 30px;
-    border-left-width: 0px;
-    border-left-color: #CCCCCC;
-    border-left-style: solid;
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 4px;
-    background: transparent;
-}
-
-QComboBox::down-arrow {
-    /* Dropdown Arrow Icon */
-    image: url(:/Images/icons/downChevronComboBox.png);
-}
-
-QComboBox QAbstractItemView {
-    /* Dropdown List */
-    background-color: #FFFFFF;
-    border: 1px solid #CCCCCC;
-    border-radius: 4px;
-    padding: 2px;
-    outline: none;
-}
-
-QComboBox QAbstractItemView::item {
-    /* List Item */
-    padding: 4px 8px;
-}
-
-QComboBox QAbstractItemView::item:hover {
-    /* Hovered Item */
-    background-color: #999fff;
-	border-radius: 8px;
-}
-
-</string>
-           </property>
-          </widget>
          </item>
          <item>
           <spacer name="horizontalSpacer_8">
@@ -1082,11 +981,23 @@ QScrollBar::handle:vertical {
           </size>
          </property>
          <property name="title">
-          <string>Filter by Brand</string>
+          <string>Filter Merek</string>
+         </property>
+         <property name="toolTip">
+          <string>Pilih merek untuk memfilter daftar produk</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_3">
           <item>
            <widget class="QListView" name="LV_brandList">
+            <property name="verticalScrollBarPolicy">
+             <enum>Qt::ScrollBarPolicy::ScrollBarAsNeeded</enum>
+            </property>
+            <property name="minimumHeight">
+             <number>140</number>
+            </property>
+            <property name="maximumHeight">
+             <number>180</number>
+            </property>
             <property name="styleSheet">
              <string notr="true">QListView {
     background-color: #eef1fa;
@@ -1123,6 +1034,18 @@ QScrollBar::handle:vertical {
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>35</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>35</height>
+            </size>
+           </property>
             <property name="cursor">
              <cursorShape>PointingHandCursor</cursorShape>
             </property>
@@ -1145,7 +1068,7 @@ QPushButton::hover {
 }</string>
             </property>
             <property name="text">
-             <string>Filter</string>
+             <string>Terapkan</string>
             </property>
            </widget>
           </item>
@@ -1189,7 +1112,10 @@ QPushButton::hover {
           </size>
          </property>
          <property name="title">
-          <string>Filter by Category</string>
+          <string>Filter Kategori</string>
+         </property>
+         <property name="toolTip">
+          <string>Pilih kategori supaya daftar lebih mudah dibaca</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_4">
           <property name="rightMargin">
@@ -1197,6 +1123,15 @@ QPushButton::hover {
           </property>
           <item>
            <widget class="QListView" name="LV_categoryList">
+            <property name="verticalScrollBarPolicy">
+             <enum>Qt::ScrollBarPolicy::ScrollBarAsNeeded</enum>
+            </property>
+            <property name="minimumHeight">
+             <number>140</number>
+            </property>
+            <property name="maximumHeight">
+             <number>180</number>
+            </property>
             <property name="styleSheet">
              <string notr="true">QListView {
     background-color: #eef1fa;
@@ -1233,6 +1168,18 @@ QScrollBar::handle:vertical {
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>35</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>35</height>
+            </size>
+           </property>
             <property name="cursor">
              <cursorShape>PointingHandCursor</cursorShape>
             </property>
@@ -1255,7 +1202,7 @@ QPushButton::hover {
 }</string>
             </property>
             <property name="text">
-             <string>Filter</string>
+             <string>Terapkan</string>
             </property>
            </widget>
           </item>

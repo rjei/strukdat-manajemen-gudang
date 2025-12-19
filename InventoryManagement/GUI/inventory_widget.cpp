@@ -27,7 +27,6 @@ inventory_widget::inventory_widget(Manufacturers* manufacturers, Seller* user,QW
     m_manufacturers = manufacturers;
     m_user = user;
 
-    setSearchComboBox();
     initializeTableView();
 
     updateTable();
@@ -91,14 +90,6 @@ void inventory_widget::customizeListItems(){
     ui->LV_categoryList->setItemDelegate(listDelegate);
     ui->LV_brandList->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->LV_categoryList->setEditTriggers(QAbstractItemView::NoEditTriggers);
-}
-
-void inventory_widget::setSearchComboBox(){
-    ui->CB_searchBy->addItem("Name");
-    ui->CB_searchBy->addItem("SKU");
-    ui->CB_searchBy->addItem("Category");
-    ui->CB_searchBy->addItem("Brand");
-    ui->CB_searchBy->addItem("Unit");
 }
 
 void inventory_widget::initializeTableView(){
@@ -203,8 +194,8 @@ void inventory_widget::removeProduct(int row){
 
     // Create a message box to confirm the removal of the product
     QMessageBox* messageBox = new QMessageBox(this);
-    messageBox->setText("Are you sure you want to remove the product with SKU code " + productSKU +" from your inventory?");
-    messageBox->setWindowTitle("Remove Product");
+    messageBox->setText("Apakah Anda yakin ingin menghapus produk dengan kode SKU " + productSKU +" dari inventaris?");
+    messageBox->setWindowTitle("Hapus Produk");
     messageBox->addButton(QMessageBox::Yes);
     messageBox->addButton(QMessageBox::No);
 
@@ -225,18 +216,7 @@ void inventory_widget::removeProduct(int row){
 }
 
 void inventory_widget::search(const QString &text){
-    QString searchBy = ui->CB_searchBy->currentText();
-
-    if (searchBy == "Name")
-        updateTableViewWithSearchCriteria(text.toLower(), &Product::getName);
-    else if (searchBy == "SKU")
-        updateTableViewWithSearchCriteria(text.toLower(), &Product::getSku);
-    else if (searchBy == "Category")
-        updateTableViewWithSearchCriteria(text.toLower(), &Product::getCategory);
-    else if (searchBy =="Brand")
-        updateTableViewWithSearchCriteria(text.toLower(), &Product::getBrand);
-    else if (searchBy == "Unit")
-        updateTableViewWithSearchCriteria(text.toLower(), &Product::getUnit);
+    updateTableViewWithSearchCriteria(text.toLower(), &Product::getName);
 }
 
 template<typename MemberFunction>
