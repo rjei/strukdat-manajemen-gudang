@@ -57,7 +57,8 @@
      </property>
      <property name="styleSheet">
       <string notr="true">#appHeaderWidget {
-	background-image : url(:/Images/appHeaderWidgetBackground.png);
+	background-color: #ffffff;
+	border-bottom: 1px solid #e2e8f0;
 }</string>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -80,12 +81,12 @@
        <widget class="QLabel" name="LB_header">
         <property name="styleSheet">
          <string notr="true">
-font-family: 'Fjalla One', sans-serif;
-font-size: 20px;
+font-family: 'Segoe UI', 'Inter', sans-serif;
+font-size: 16px;
 letter-spacing: 0px;
 word-spacing: 0px;
-color: #ebecf5;
-font-weight: bold;
+color: #1e293b;
+font-weight: 600;
 text-decoration: none;
 font-style: normal;
 font-variant: normal;
@@ -101,12 +102,12 @@ padding:50px 10px;</string>
        <widget class="QLabel" name="LB_userHeader">
         <property name="styleSheet">
          <string notr="true">
-font-family: 'Fjalla One', sans-serif;
+font-family: 'Segoe UI', 'Inter', sans-serif;
 text-align: right;
 font-size: 12px;
 letter-spacing: 0px;
 word-spacing: 0px;
-color: #cacde3;
+color: #64748b;
 font-weight: bold;
 text-decoration: none;
 font-style: normal;
@@ -139,20 +140,20 @@ text-transform: none;</string>
 	background-repeat : no repeat;
 	background-size: contain;
 	display:inline-block;
-	border-radius:0px;
+	border-radius:6px;
 	cursor:pointer;
 	color:#ffffff;
-	font-family:Arial;
+	font-family: 'Segoe UI', 'Inter', sans-serif;
 	font-size:12px;
 
 	padding:50px 10px;
 }
 
 QPushButton:hover {
-	background-color:#transparent;
+	background-color:#f3f4f6;
 }
 QPushButton:pressed {
-	background-color:#transparent;
+	background-color:#e2e8f0;
 	color:#000000;
 }
 
@@ -194,7 +195,8 @@ QPushButton:active {
        </property>
        <property name="styleSheet">
         <string notr="true">QWidget #leftMenuWidget {
-	background-image : url(:/Images/leftMenuBackground.png);
+	background-color: #f8fafc;
+	border-right: 1px solid #e2e8f0;
 }</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -236,21 +238,23 @@ QPushButton:active {
 	background-position : center;
 	background-repeat : none;
 	display:inline-block;
-	border-radius:0px;
+	border-radius:6px;
 	cursor:pointer;
 	color:#ffffff;
-	font-family:Arial;
+	font-family: 'Segoe UI', 'Inter', sans-serif;
 	font-size:12px;
 
 	padding:50px 10px;
+	border: none;
+    background-color: transparent;
 }
 
 QPushButton:hover {
-	background-color : #ecebfb;
+	background-color : #f3f4f6;
 	color:#000000;
 }
 QPushButton:pressed {
-	background-color:#DCD7C9;
+	background-color:#cbd5e1;
 	color:#000000;
 }
 
@@ -306,7 +310,7 @@ QPushButton:active {
        </property>
        <property name="styleSheet">
         <string notr="true">QWidget #mainWidget {
-	background-color : #ecebfb;
+	background-color : #ffffff;
 }</string>
        </property>
       </widget>

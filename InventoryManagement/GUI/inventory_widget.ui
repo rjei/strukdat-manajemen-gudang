@@ -174,16 +174,16 @@ text-transform: none;</string>
            </property>
            <property name="styleSheet">
             <string notr="true">QLineEdit {
-	background-color: #ced1e7;
-	border-radius:8px;
-	border:1px solid #ced1e7;
+	background-color: #ffffff;
+	border-radius:6px;
+	border:1px solid #cbd5e1;
 	display:inline-block;
 	cursor:text;
-	color : #2c2c3b;
-	font-family:Impactl;
-	font-size:10px;
-	font-weight:bold;
-	padding:10px 10px;
+	color : #1e293b;
+	font-family: 'Segoe UI', 'Inter', sans-serif;
+	font-size:12px;
+	font-weight:normal;
+	padding:4px 10px;
 }
 </string>
            </property>
@@ -222,20 +222,71 @@ text-transform: none;</string>
           </spacer>
          </item>
          <item>
-          <spacer name="horizontalSpacer_8">
-           <property name="orientation">
-            <enum>Qt::Orientation::Horizontal</enum>
-           </property>
-           <property name="sizeType">
-            <enum>QSizePolicy::Policy::Minimum</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
+          <widget class="QComboBox" name="CB_searchBy">
+           <property name="minimumSize">
             <size>
-             <width>20</width>
-             <height>10</height>
+             <width>152</width>
+             <height>35</height>
             </size>
            </property>
-          </spacer>
+           <property name="maximumSize">
+            <size>
+             <width>135</width>
+             <height>35</height>
+            </size>
+           </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QComboBox {
+    background-color: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    padding: 8px 10px;
+    min-width: 130px;
+    color: #000000;
+    font-family: 'Segoe UI';
+}
+
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: right;
+    width: 30px;
+    border-left: none;
+    background: transparent;
+}
+
+QComboBox::down-arrow {
+    image: url(:/Images/icons/downChevronComboBox.png);
+    width: 12px;
+    height: 12px;
+}
+
+QComboBox QAbstractItemView {
+    background-color: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    color: #000000;
+    outline: none;
+    padding: 4px;
+}
+
+QComboBox QAbstractItemView::item {
+    color: #000000;
+    padding: 10px;
+    min-height: 20px;
+    margin-bottom: 4px;
+}
+
+QComboBox QAbstractItemView::item:hover,
+QComboBox QAbstractItemView::item:selected {
+    background-color: #f1f5f9;
+    color: #000000;
+    border-radius: 4px;
+}</string>
+           </property>
+          </widget>
          </item>
          <item>
           <widget class="QPushButton" name="PB_showGraph">
@@ -796,14 +847,14 @@ QPushButton::hover {
            <property name="cursor">
             <cursorShape>PointingHandCursor</cursorShape>
            </property>
-           <property name="styleSheet">
-            <string notr="true">QPushButton {
-    background-color: #f4c3d6;
-    border: 1px solid #CCCCCC;
-    border-radius: 8px;
+            <property name="styleSheet">
+             <string notr="true">QPushButton {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
     padding: 8px 8px;
-	color: #1c1d06;
-	font-family : Cabin;
+	color: #64748b;
+	font-family : 'Segoe UI', 'Inter', sans-serif;
 	font-weight : bold;
 	font-size : 12px;
 
@@ -811,10 +862,12 @@ QPushButton::hover {
 }
 
 QPushButton::hover {
-	background-color : #eff4fc;
+	background-color : #fef2f2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
 
 }</string>
-           </property>
+            </property>
            <property name="text">
             <string>Remove</string>
            </property>
@@ -921,33 +974,54 @@ QPushButton::hover {
            <height>5700</height>
           </size>
          </property>
-         <property name="styleSheet">
-          <string notr="true">QTableView {
-	background-color : #ebecf5;
-	border-radius : 10 px;
-	color: #000000;
+          <property name="styleSheet">
+           <string notr="true">QTableView {
+	background-color : #ffffff;
+	border-radius : 6px;
+    border: 1px solid #e2e8f0;
+	color: #1e293b;
+    gridline-color: #f0f0f0;
+    font-family: 'Segoe UI', 'Inter', sans-serif;
+    outline: none;
 }
 
 QTableView::item {
-	color: #000000;
+	color: #1e293b;
+    padding: 5px;
+    border: none;
+}
+
+QTableView::item:selected {
+    background-color: #f0f7ff;
+    color: #0969da;
+    border: 2px solid #0969da;
+}
+
+QTableView::item:focus {
+    color: #0969da;
+    border: 2px solid #0969da;
+    background-color: #ffffff;
 }
 
 QHeaderView::section {
-	color: #000000;
-	background-color: #d9e5f8;
+	color: #334155;
+	background-color: #f8fafc;
 	padding: 5px;
 	font-weight: bold;
+    border: none;
+    border-bottom: 1px solid #e2e8f0;
 }
 
 QScrollBar:vertical {
-  background-color: #d3d3d3; /* Change to the desired color */
+  background-color: #f8fafc;
 }
 
 QScrollBar::handle:vertical {
-  background-color: #c5b4ee; /* Change to the desired color */
+  background-color: #cbd5e1;
+  border-radius: 4px;
 }
 </string>
-         </property>
+          </property>
         </widget>
        </item>
       </layout>
@@ -962,6 +1036,21 @@ QScrollBar::handle:vertical {
        </property>
        <item>
         <widget class="QGroupBox" name="GB_brandFilter">
+         <property name="styleSheet">
+          <string notr="true">QGroupBox {
+    border: none;
+    font-family: 'Segoe UI', 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    color: #475569;
+    margin-top: 10px;
+}
+QGroupBox::title {
+    subcontrol-origin: margin;
+    left: 0px;
+    padding: 0 3px 0 3px;
+}</string>
+         </property>
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
            <horstretch>0</horstretch>
@@ -1051,19 +1140,20 @@ QScrollBar::handle:vertical {
             </property>
             <property name="styleSheet">
              <string notr="true">QPushButton {
-    background-color: #c3d6f4;
-    border: 1px solid #CCCCCC;
-    border-radius: 8px;
+    background-color: #3b82f6;
+    border: none;
+    border-radius: 6px;
     padding: 8px 8px;
-	color: #1c1d06;
-	font-family : Cabin;
+	color: #ffffff;
+	font-family : 'Segoe UI', 'Inter', sans-serif;
 	font-size : 12px;
+    font-weight: bold;
 
 	
 }
 
 QPushButton::hover {
-	background-color : #eff4fc;
+	background-color : #2563eb;
 
 }</string>
             </property>
@@ -1093,6 +1183,21 @@ QPushButton::hover {
        </item>
        <item>
         <widget class="QGroupBox" name="GB_categoryFilter">
+         <property name="styleSheet">
+          <string notr="true">QGroupBox {
+    border: none;
+    font-family: 'Segoe UI', 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    color: #475569;
+    margin-top: 10px;
+}
+QGroupBox::title {
+    subcontrol-origin: margin;
+    left: 0px;
+    padding: 0 3px 0 3px;
+}</string>
+         </property>
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
            <horstretch>0</horstretch>
@@ -1185,19 +1290,20 @@ QScrollBar::handle:vertical {
             </property>
             <property name="styleSheet">
              <string notr="true">QPushButton {
-    background-color: #c3d6f4;
-    border: 1px solid #CCCCCC;
-    border-radius: 8px;
+    background-color: #3b82f6;
+    border: none;
+    border-radius: 6px;
     padding: 8px 8px;
-	color: #1c1d06;
-	font-family : Cabin;
+	color: #ffffff;
+	font-family : 'Segoe UI', 'Inter', sans-serif;
 	font-size : 12px;
+    font-weight: bold;
 
 	
 }
 
 QPushButton::hover {
-	background-color : #eff4fc;
+	background-color : #2563eb;
 
 }</string>
             </property>
