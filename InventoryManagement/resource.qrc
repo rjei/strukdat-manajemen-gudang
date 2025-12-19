@@ -1,12 +1,9 @@
 <RCC>
     <qresource prefix="/">
-        <file>Images/appHeaderWidgetBackground.png</file>
-        <file>Images/leftMenuBackground.png</file>
         <file>Images/icons/inventoryIcon.png</file>
         <file>Images/icons/profileIcon.png</file>
         <file>Images/icons/downChevronComboBox.png</file>
         <file>Images/addProductWindowBackground.png</file>
-        <file>Images/icons/InventoryManagement.png</file>
         <file>Images/editProductWindow.png</file>
     </qresource>
 </RCC>
