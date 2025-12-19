@@ -98,3 +98,70 @@ void WarehouseGraph::displayNetwork() {
         }
     }
 }
+
+std::string WarehouseGraph::getWeightedGraphString(std::string startId, std::string endId) {
+    startId = toUpperCase(startId);
+    endId = toUpperCase(endId);
+    
+    std::string result;
+    result += "========================================\n";
+    result += "   DAFTAR JARINGAN GUDANG BERBOBOT\n";
+    result += "========================================\n\n";
+    
+    // Tampilkan seluruh struktur graf dengan bobot (jarak dalam km)
+    for (auto const& [u, neighbors] : adjList) {
+        result += "Gudang [" + u + "] terhubung ke:\n";
+        for (auto const& neighbor : neighbors) {
+            result += "  -> " + neighbor.first + " (" + std::to_string(neighbor.second) + " km)\n";
+        }
+        result += "\n";
+    }
+    
+    // Jika asal dan tujuan valid, tampilkan hasil analisis Dijkstra
+    if (!startId.empty() && !endId.empty()) {
+        if (!hasWarehouse(startId)) {
+            result += "========================================\n";
+            result += "ERROR: Gudang asal '" + startId + "' tidak ditemukan!\n";
+            result += "========================================\n";
+            return result;
+        }
+        if (!hasWarehouse(endId)) {
+            result += "========================================\n";
+            result += "ERROR: Gudang tujuan '" + endId + "' tidak ditemukan!\n";
+            result += "========================================\n";
+            return result;
+        }
+        
+        int totalKm;
+        std::vector<std::string> rute = getShortestPath(startId, endId, totalKm);
+        
+        result += "========================================\n";
+        result += "   HASIL ANALISIS DIJKSTRA\n";
+        result += "========================================\n";
+        
+        if (rute.empty() || totalKm == -1) {
+            result += "Maaf, tidak ada rute pengiriman yang tersedia.\n";
+        } else {
+            result += "Rute Ditemukan!\n\n";
+            result += "Jalur: ";
+            for (size_t i = 0; i < rute.size(); i++) {
+                result += rute[i];
+                if (i < rute.size() - 1) {
+                    result += " -> ";
+                }
+            }
+            result += "\n\n";
+            result += "Total Jarak Tempuh: " + std::to_string(totalKm) + " km\n";
+        }
+    }
+    
+    return result;
+}
+
+std::vector<std::string> WarehouseGraph::getWarehouseIds() {
+    std::vector<std::string> ids;
+    for (auto const& [id, _] : warehouseData) {
+        ids.push_back(id);
+    }
+    return ids;
+}

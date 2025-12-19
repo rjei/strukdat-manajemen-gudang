@@ -4,11 +4,8 @@
 #include <QDialog>
 #include <QPushButton>
 #include <QWidget>
-#include <QMessageBox>
-#include <QInputDialog>  // Tambahkan ini untuk meminta input
-#include <QStringList>   // Tambahkan ini untuk pilihan dropdown
-#include "../warehouse_graph.h"
 
+// Forward declarations agar compiler mengenali tipe data ini
 class Manufacturers;
 class Seller;
 
@@ -21,28 +18,33 @@ class home_window : public QDialog
     Q_OBJECT
 
 public:
-    explicit home_window(Manufacturers* manufacturers, Seller *user, QWidget *parent = nullptr);
+    // Pastikan argumen constructor cocok dengan yang dipanggil di main.cpp
+    explicit home_window(Manufacturers* manufacturers, Seller* user, QWidget *parent = nullptr);
     ~home_window();
 
 signals:
     void dialogClosed();
 
 private slots:
+    // Fungsi bantuan untuk styling tombol
     void setPushButtonDefaultStyle(QPushButton* button, const QString& iconPath);
     void setPushButtonSelectedtStyle(QPushButton* button, const QString& iconPath);
     void pushButtonsDefaultStyle();
+
+    // Fungsi untuk manajemen widget
     void closeWidgets();
     void closeChildWidget(QWidget* parent, const QString& widgetName);
+
+    // Slot navigasi (Hanya Inventory yang tersisa)
     void on_PB_inventory_clicked();
+
+    // Setup label user
     void setLabels();
 
 private:
     Ui::home_window *ui;
     Manufacturers* m_manufacturers;
     Seller* m_user;
-
-    WarehouseGraph network;
-    void setupGraphData();
 };
 
-#endif
+#endif // HOME_WINDOW_H

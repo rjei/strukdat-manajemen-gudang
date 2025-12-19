@@ -37,6 +37,12 @@ public:
 
     void displayNetwork();
     bool hasWarehouse(std::string id);
+    
+    // Menampilkan graf berbobot sebagai string dengan hasil analisis Dijkstra
+    std::string getWeightedGraphString(std::string startId, std::string endId);
+    
+    // Mendapatkan daftar ID gudang
+    std::vector<std::string> getWarehouseIds();
 };
 
 #endif
